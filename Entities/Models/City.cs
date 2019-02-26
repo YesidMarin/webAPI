@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,10 +9,18 @@ namespace Entities.Models
     public class City
     {
         [Key]
-        public int CityId { get; set; }
+        [Column("CityId")]
+        public int Id { get; set; }
 
+        [Column("CityName")]
         [Required(ErrorMessage = "City name is required")]
         [StringLength(25, ErrorMessage = "City name can't be longer than 25 characters")]
-        public string CityName { get; set; }
+        public string Name { get; set; }
     }
+
+    public class Cities
+    {
+        public IEnumerable<City> ListCities { get; set; }
+    }
+
 }

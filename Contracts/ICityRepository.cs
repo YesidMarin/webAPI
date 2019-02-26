@@ -6,6 +6,6 @@ namespace Contracts
 {
     public interface ICityRepository : IRepositoryBase<City>
     {
-        IEnumerable<City> GetAllCities();
+        Cities GetAllCities();
     }
 }
