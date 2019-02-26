@@ -11,5 +11,6 @@ namespace Entities
 
         public DbSet<City> Cities { get; set; }
 
+        public DbSet<Customer> Customers { get; set; }
     }
 }

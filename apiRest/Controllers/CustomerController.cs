@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,38 +10,49 @@ using Microsoft.AspNetCore.Mvc;
 namespace apiRest.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class CustomerController : Controller
     {
-        // GET: api/values
+        private IRepositoryWrapper _repositoryWrapper;
+
+        public CustomerController(IRepositoryWrapper repositoryWrapper)
+        {
+            _repositoryWrapper = repositoryWrapper;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetAllCustomers()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var customers = _repositoryWrapper.Customer.GetAllCustomers();
+                return Ok(customers);
+            } catch (Exception ex)
+            {
+                return StatusCode(500, "Interal Error");
+            }
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult GetCustomerById(int id)
         {
-            return "value";
-        }
+            try
+            {
+                var customer = _repositoryWrapper.Customer.GetCustomerById(id);
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+                if (customer.GuidCustomer.Equals(Guid.Empty))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(customer);
+                }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            } catch (Exception ex)
+            {
+                return StatusCode(500, "Error Internal");
+            }
         }
     }
 }

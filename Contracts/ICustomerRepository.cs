@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using Entities.Models;
+
 namespace Contracts
 {
-    public class ICustomerRepository
+    public interface ICustomerRepository : IRepositoryBase<Customer>
     {
-        public ICustomerRepository()
-        {
-        }
+        IEnumerable<Customer> GetAllCustomers();
+
+        Customer GetCustomerById(int id);
     }
 }

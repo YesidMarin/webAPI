@@ -8,6 +8,7 @@ namespace Repository
     {
         private RepositoryContext _repositoryContext;
         private ICityRepository _cityRepository;
+        private ICustomerRepository _customerRepository;
 
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {
@@ -23,6 +24,18 @@ namespace Repository
                     _cityRepository = new CityRepository(_repositoryContext);
                 }
                 return _cityRepository;
+            }
+        }
+
+        public ICustomerRepository Customer
+        {
+            get
+            {
+                if (_customerRepository == null)
+                {
+                    _customerRepository = new CustomerRepository(_repositoryContext);
+                }
+                return _customerRepository;
             }
         }
     }
