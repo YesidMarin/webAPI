@@ -31,6 +31,27 @@ namespace apiRest.Controllers
             }
         }
 
-      
+        [HttpGet("{id}")]
+        public IActionResult GetCityById(Guid id)
+        {
+            try
+            {
+
+                var city = _repositoryWrapper.City.GetCityById(id);
+                if (city.Id.Equals(Guid.Empty))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(city);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
     }
 }

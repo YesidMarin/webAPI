@@ -7,5 +7,7 @@ namespace Contracts
     public interface ICityRepository : IRepositoryBase<City>
     {
         Cities GetAllCities();
+
+        City GetCityById(Guid id);
     }
 }

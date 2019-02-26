@@ -18,5 +18,12 @@ namespace Repository
             cities.ListCities = (FindAll().OrderBy(ob => ob.Name));
             return cities;
         }
+
+        public City GetCityById(Guid id)
+        {
+            return FindByCondition(city => city.Id.Equals(id))
+                .DefaultIfEmpty(new City())
+                .FirstOrDefault();
+        }
     }
 }

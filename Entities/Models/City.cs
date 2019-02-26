@@ -10,7 +10,7 @@ namespace Entities.Models
     {
         [Key]
         [Column("CityId")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Column("CityName")]
         [Required(ErrorMessage = "City name is required")]
