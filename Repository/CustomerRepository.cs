@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Contracts;
 using Entities;
+using Entities.DTO;
 using Entities.Models;
 
 namespace Repository
@@ -23,5 +24,6 @@ namespace Repository
                 .DefaultIfEmpty(new Customer())
                 .FirstOrDefault();
         }
+
     }
 }

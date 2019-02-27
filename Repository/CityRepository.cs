@@ -2,6 +2,7 @@
 using System.Linq;
 using Contracts;
 using Entities;
+using Entities.DTO;
 using Entities.Models;
 
 namespace Repository
@@ -24,6 +25,16 @@ namespace Repository
             return FindByCondition(city => city.Id.Equals(id))
                 .DefaultIfEmpty(new City())
                 .FirstOrDefault();
+        }
+
+        public CityDTO GetCityByIdWithCustomers(Guid id)
+        {
+            return new CityDTO(GetCityById(id))
+            {
+                Customers = RepositoryContext.Customers
+                .Where(customer => customer.GuidCity == id)
+                .DefaultIfEmpty(new Customer())
+            };
         }
     }
 }

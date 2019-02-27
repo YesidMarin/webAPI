@@ -7,7 +7,7 @@ namespace apiRest.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CityController: Controller
+    public class CityController : Controller
     {
 
         private IRepositoryWrapper _repositoryWrapper;
@@ -29,7 +29,8 @@ namespace apiRest.Controllers
                 _logger.LogInfo("Return all cities inside: CityController -> GetAllCities from database.");
                 return Ok(cities);
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 _logger.LogError($"Something went wrong inside: CityController -> GetAllCities. Message error: {ex.Message}");
                 return StatusCode(500, "Internal server error");
@@ -61,5 +62,29 @@ namespace apiRest.Controllers
             }
         }
 
+        [HttpGet("{id}/customers")]
+        public IActionResult GetCityByIdWithCustomers(Guid id)
+        {
+            try
+            {
+                var city = _repositoryWrapper.City.GetCityByIdWithCustomers(id);
+                if (city.Id.Equals(Guid.Empty))
+                {
+                    _logger.LogWarn($"Not found register inside: CityController -> GetCityByIdWithCustomers with id: {id}");
+                    return NotFound();
+                }
+                else
+                {
+                    _logger.LogInfo($"Return customers in city with id: {id}");
+                    return Ok(city);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside: CityController -> GetCityByIdWithCustomers action: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+
+        }
     }
 }
