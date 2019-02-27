@@ -39,3 +39,8 @@ Thumbs.db
 
 # dotCover
 *.dotCover
+
+# logger
+
+internal_logs/
+logs/
