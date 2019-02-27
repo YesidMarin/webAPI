@@ -15,7 +15,7 @@ namespace Repository
         public Cities GetAllCities()
         {
             Cities cities = new Cities();
-            cities.ListCities = (FindAll().OrderBy(ob => ob.Name));
+            cities.ListCities = (FindAll().OrderBy(ob => ob.Name)).DefaultIfEmpty(new City());
             return cities;
         }
 

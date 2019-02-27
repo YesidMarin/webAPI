@@ -14,9 +14,11 @@ namespace apiRest.Controllers
     public class CustomerController : Controller
     {
         private IRepositoryWrapper _repositoryWrapper;
+        private ILoggerManager _logger;
 
-        public CustomerController(IRepositoryWrapper repositoryWrapper)
+        public CustomerController(ILoggerManager logger, IRepositoryWrapper repositoryWrapper)
         {
+            _logger = logger;
             _repositoryWrapper = repositoryWrapper;
         }
 
@@ -26,10 +28,12 @@ namespace apiRest.Controllers
             try
             {
                 var customers = _repositoryWrapper.Customer.GetAllCustomers();
+                _logger.LogInfo("Returned all customers inside: CustomerController -> GetAllCustomers from database.");
                 return Ok(customers);
             } catch (Exception ex)
             {
-                return StatusCode(500, "Interal Error");
+                _logger.LogError($"Somenthing went wrong inside: CustomerController -> GetAllCustomers. Message error: {ex.Message}");
+                return StatusCode(500, "Internal error server");
             }
         }
 
@@ -42,16 +46,19 @@ namespace apiRest.Controllers
 
                 if (customer.GuidCustomer.Equals(Guid.Empty))
                 {
+                    _logger.LogWarn($"Not found register inside: CustomerController -> GetCustomerById with id: {id}");
                     return NotFound();
                 }
                 else
                 {
+                    _logger.LogInfo($"Returned customer inside: CustomerController -> GetCustomerById with id: {id}");
                     return Ok(customer);
                 }
 
             } catch (Exception ex)
             {
-                return StatusCode(500, "Error Internal");
+                _logger.LogError($"Somenthing went wrong inside: CustomerController -> GetCustomerById. Message error: {ex.Message}");
+                return StatusCode(500, "Internal error server");
             }
         }
     }

@@ -11,9 +11,11 @@ namespace apiRest.Controllers
     {
 
         private IRepositoryWrapper _repositoryWrapper;
+        private ILoggerManager _logger;
 
-        public CityController(IRepositoryWrapper repositoryWrapper)
+        public CityController(ILoggerManager logger, IRepositoryWrapper repositoryWrapper)
         {
+            _logger = logger;
             _repositoryWrapper = repositoryWrapper;
         }
 
@@ -24,10 +26,13 @@ namespace apiRest.Controllers
             try
             {
                 var cities = _repositoryWrapper.City.GetAllCities();
+                _logger.LogInfo("Return all cities inside: CityController -> GetAllCities from database.");
                 return Ok(cities);
+
             } catch (Exception ex)
             {
-                return StatusCode(500, "Interal Error");
+                _logger.LogError($"Something went wrong inside: CityController -> GetAllCities. Message error: {ex.Message}");
+                return StatusCode(500, "Internal server error");
             }
         }
 
@@ -40,15 +45,18 @@ namespace apiRest.Controllers
                 var city = _repositoryWrapper.City.GetCityById(id);
                 if (city.Id.Equals(Guid.Empty))
                 {
+                    _logger.LogWarn($"Not found register inside: CityController -> GetCityById with id: {id}");
                     return NotFound();
                 }
                 else
                 {
+                    _logger.LogInfo($"Return city with id: {id}");
                     return Ok(city);
                 }
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Something went wrong inside: CityController -> GetCityById action: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }
