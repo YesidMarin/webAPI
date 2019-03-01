@@ -1,39 +1,43 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace Entities.Models
 {
     [Table("Customer")]
-    public class Customer
+    public class Customer : IEntity
     {
         [Key]
         [Column("CustomerId")]
-        public Guid GuidCustomer { get; set; }
+        public Guid Id { get; set; }
 
         [Column("CustomerCityId")]
-        [Required(ErrorMessage = "City is required")]
+        [JsonRequiredAttribute()]
         public Guid GuidCity { get; set; }
 
         [Column("CustomerName")]
-        [Required(ErrorMessage = "Customer name is required")]
+        [StringLength(25, ErrorMessage = "Max range of 25")]
+        [JsonRequiredAttribute()]
         public string Name { get; set; }
 
         [Column("CustomerLastName")]
-        [Required(ErrorMessage = "Customer lastname is required")]
+        [StringLength(25, ErrorMessage = "Max range of 25")]
+        [JsonRequiredAttribute()]
         public string LastName { get; set; }
 
         [Column("CustomerIdNumber")]
-        [Required(ErrorMessage = "Identification is unique and required")]
         public int Identification { get; set; }
 
         [Column("CustomerTelephone")]
         public int Telephone { get; set; }
 
         [Column("CustomerAddress")]
+        [StringLength(30, ErrorMessage = "Max range of 30")]
         public string Address { get; set; }
 
         [Column("CustomerEmail")]
+        [StringLength(30, ErrorMessage = "Max range of 30")]
         public string Email { get; set; }
     }
 }

@@ -2,10 +2,10 @@ USE weky;
 
 CREATE TABLE IF NOT EXISTS Customer (
 	CustomerId CHAR(36) primary key,
-    CustomerCityId CHAR(36),
+    CustomerCityId CHAR(36) not null,
     CustomerName varchar(25) not null,
     CustomerLastName varchar(25) not null,
-    CustomerIdNumber int(12),
+    CustomerIdNumber int(12) unique not null,
     CustomerTelephone int(10),
     CustomerAddress varchar(30),
     CustomerEmail varchar(30),
