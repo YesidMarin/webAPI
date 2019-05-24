@@ -26,6 +26,14 @@ namespace apiRest.Controllers
             try
             {
                 var cities = _repositoryWrapper.City.GetAllCities();
+
+                foreach (var city in cities.ListCities)
+                {
+                    if (city.Id.Equals(Guid.Empty)){
+                        return NotFound();
+                    }
+                }
+
                 _logger.LogInfo("Return all cities inside: CityController -> GetAllCities from database.");
                 return Ok(cities);
 
@@ -75,6 +83,12 @@ namespace apiRest.Controllers
                 }
                 else
                 {
+                    foreach (var customer in city.Customers)
+                    {
+                        if (customer.Id.Equals(Guid.Empty)){
+                            return NotFound();
+                        }
+                    }
                     _logger.LogInfo($"Return customers in city with id: {id}");
                     return Ok(city);
                 }

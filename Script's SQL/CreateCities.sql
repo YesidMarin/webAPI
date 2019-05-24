@@ -11,5 +11,8 @@ INSERT INTO Cities (CityId,CityName) VALUES ("a3c1880c-674c-4d18-8f91-5d3608a2c9
 INSERT INTO Cities (CityId,CityName) VALUES ("f98e4d74-0f68-4aac-89fd-047f1aaca6b6","Santa Marta");
 INSERT INTO Cities (CityId,CityName) VALUES ("356a5a9b-64bf-4de0-bc84-5395a1fdc9c4","Amazonas");
 
+DROP TABLE Cities;
+
+DELETE  FROM Cities;
 
 SELECT * FROM Cities;
