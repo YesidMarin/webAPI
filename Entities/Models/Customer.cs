@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
@@ -40,4 +41,5 @@ namespace Entities.Models
         [StringLength(30, ErrorMessage = "Max range of 30")]
         public string Email { get; set; }
     }
+
 }

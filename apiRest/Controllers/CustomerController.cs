@@ -32,7 +32,13 @@ namespace apiRest.Controllers
             try
             {
                 var customers = _repositoryWrapper.Customer.GetAllCustomers();
-                _logger.LogInfo("Returned all customers inside: CustomerController -> GetAllCustomers from database.");
+
+                if (customers.Where((arg) => arg.IsEmptyObject()).Any())
+                {
+                    return NotFound();
+                }
+
+                //_logger.LogInfo("Returned all customers inside: CustomerController -> GetAllCustomers from database.");
                 return Ok(customers);
             } catch (Exception ex)
             {

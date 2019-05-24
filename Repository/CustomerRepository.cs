@@ -24,7 +24,7 @@ namespace Repository
 
         public IEnumerable<Customer> GetAllCustomers()
         {
-            return FindAll().OrderBy(ob => ob.Name);
+            return FindAll().OrderBy(ob => ob.Name).DefaultIfEmpty(new Customer());
         }
 
         public Customer GetCustomerById(int id)

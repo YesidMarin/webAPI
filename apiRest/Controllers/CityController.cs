@@ -26,7 +26,6 @@ namespace apiRest.Controllers
             try
             {
                 var cities = _repositoryWrapper.City.GetAllCities();
-
                 foreach (var city in cities.ListCities)
                 {
                     if (city.Id.Equals(Guid.Empty)){
