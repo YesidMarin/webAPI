@@ -14,6 +14,13 @@ namespace Repository
         {
         }
 
+        public void CreateCity(City city)
+        {
+            city.Id = new Guid();
+            Create(city);
+            Save();
+        }
+
         public IEnumerable<City> GetAllCities()
         {
             return (FindAll().OrderBy(ob => ob.Name)).DefaultIfEmpty(new City());

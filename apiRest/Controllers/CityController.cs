@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Contracts;
 using System.Linq;
+using Entities.Models;
 using Entities.Extensions;
 
 namespace apiRest.Controllers
@@ -100,5 +101,40 @@ namespace apiRest.Controllers
             }
 
         }
+
+        /*
+
+        Request body
+
+        {
+            "name": "city_name"
+        }           
+
+            */
+
+        [HttpPost]
+        public IActionResult CreateCity([FromBody] City city)
+        {
+            try
+            {
+                if (city == null)
+                {
+                    return BadRequest("City is a null object");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                _repositoryWrapper.City.CreateCity(city);
+                return Ok(city);
+
+            } catch(Exception ex)
+            {
+                _logger.LogError($"Somenthing went wrong: {ex}");
+                return StatusCode(500, $"Internal error server {ex.InnerException.InnerException.Message}");
+            }
+        }
+
     }
 }

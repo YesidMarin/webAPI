@@ -10,5 +10,6 @@ namespace Contracts
         IEnumerable<City> GetAllCities();
         City GetCityById(Guid id);
         CityDTO GetCityByIdWithCustomers(Guid id);
+        void CreateCity(City city);
     }
 }
