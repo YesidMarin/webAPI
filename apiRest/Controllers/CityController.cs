@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Contracts;
+using System.Linq;
+using Entities.Extensions;
 
 namespace apiRest.Controllers
 {
@@ -26,11 +28,10 @@ namespace apiRest.Controllers
             try
             {
                 var cities = _repositoryWrapper.City.GetAllCities();
-                foreach (var city in cities.ListCities)
+
+                if (cities.Where((arg) => arg.Id.Equals(Guid.Empty)).Any())
                 {
-                    if (city.Id.Equals(Guid.Empty)){
-                        return NotFound();
-                    }
+                    return NotFound();
                 }
 
                 _logger.LogInfo("Return all cities inside: CityController -> GetAllCities from database.");

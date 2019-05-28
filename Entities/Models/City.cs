@@ -17,10 +17,4 @@ namespace Entities.Models
         [StringLength(25, ErrorMessage = "City name can't be longer than 25 characters")]
         public string Name { get; set; }
     }
-
-    public class Cities
-    {
-        public IEnumerable<City> ListCities { get; set; }
-    }
-
 }

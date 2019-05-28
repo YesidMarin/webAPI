@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Contracts;
 using Entities;
@@ -13,11 +14,9 @@ namespace Repository
         {
         }
 
-        public Cities GetAllCities()
+        public IEnumerable<City> GetAllCities()
         {
-            Cities cities = new Cities();
-            cities.ListCities = (FindAll().OrderBy(ob => ob.Name)).DefaultIfEmpty(new City());
-            return cities;
+            return (FindAll().OrderBy(ob => ob.Name)).DefaultIfEmpty(new City());
         }
 
         public City GetCityById(Guid id)
