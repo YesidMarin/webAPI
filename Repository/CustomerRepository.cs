@@ -22,6 +22,12 @@ namespace Repository
             Save();
         }
 
+        public void DeleteCustomer(Customer customer)
+        {
+            Delete(customer);
+            Save();
+        }
+
         public IEnumerable<Customer> GetAllCustomers()
         {
             return FindAll().OrderBy(ob => ob.Name).DefaultIfEmpty(new Customer());

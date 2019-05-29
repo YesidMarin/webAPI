@@ -154,5 +154,30 @@ namespace apiRest.Controllers
                 return StatusCode(500, "Internal error server");
             }
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCustomer(Guid id)
+        {
+            try
+            {
+                var customer = _repositoryWrapper.Customer.GetCustomerById(id);
+
+                if (customer.IsEmptyObject())
+                {
+                    _logger.LogWarn($"Not found register inside: CustomerController -> GetCustomerById with id: {id}");
+                    return NotFound();
+                }
+                else
+                {
+                    _repositoryWrapper.Customer.DeleteCustomer(customer);
+                    return Ok();
+                }
+
+            } catch (Exception ex)
+            {
+                _logger.LogError($"Somenthing went wrong. Message error: {ex}");
+                return StatusCode(500, "Internal error server");
+            }
+        }
     }
 }

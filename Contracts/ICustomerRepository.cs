@@ -10,5 +10,6 @@ namespace Contracts
         Customer GetCustomerById(Guid id);
         void CreateCustomer(Customer customer);
         void UpdateCustomer(Customer dbCustomer, Customer customer);
+        void DeleteCustomer(Customer customer);
     }
 }
