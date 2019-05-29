@@ -11,8 +11,8 @@ namespace Entities.Extensions
             dbCustomer.Name = customer.Name.IsNullOrEmpty() ? dbCustomer.Name : customer.Name.CapitalizeLetters().Trim();
 
             dbCustomer.LastName = customer.LastName.IsNullOrEmpty() ? dbCustomer.LastName : customer.LastName.CapitalizeLetters().Trim();
-            dbCustomer.Identification = customer.Identification.IsNullOrEmpty() ? dbCustomer.Identification : customer.Identification;
-            dbCustomer.Telephone = customer.Telephone.IsNullOrEmpty() ? dbCustomer.Telephone : customer.Telephone;
+            dbCustomer.Identification = customer.Identification.IsNullOrEmpty() ? dbCustomer.Identification : customer.Identification.Trim();
+            dbCustomer.Telephone = customer.Telephone.IsNullOrEmpty() ? dbCustomer.Telephone : customer.Telephone.Trim();
             dbCustomer.Address = customer.Address.IsNullOrEmpty() ? dbCustomer.Address : customer.Address.Trim();
             dbCustomer.Email = customer.Email.IsNullOrEmpty() ? dbCustomer.Email : customer.Email.Trim();
         }
