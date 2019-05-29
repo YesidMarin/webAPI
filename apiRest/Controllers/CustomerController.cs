@@ -48,7 +48,7 @@ namespace apiRest.Controllers
         }
 
         [HttpGet("{id}", Name = "CustomerById")]
-        public IActionResult GetCustomerById(int id)
+        public IActionResult GetCustomerById(Guid id)
         {
             try
             {
@@ -72,6 +72,16 @@ namespace apiRest.Controllers
             }
         }
 
+        /*
+
+            {
+                "guidcity": "24fd81f8-d58a-4bcc-9f35-dc6cd5641906",
+                "name": "test",
+                "lastname": "uplaod"
+            }
+            
+        */
+
         [HttpPost]
         public IActionResult CreateCustomer([FromBody] Customer customer)
         {
@@ -90,21 +100,33 @@ namespace apiRest.Controllers
 
                 _repositoryWrapper.Customer.CreateCustomer(customer);
 
-                return CreatedAtRoute("CustomerById", new { id = customer.Identification}, customer);
-            } catch (Exception ex)
+                return CreatedAtRoute("CustomerById", new { id = customer.Id }, customer);
+            }
+            catch (Exception ex)
             {
                 _logger.LogError($"Somenthing went wrong inside: CustomerController -> CreateCustomer. Message error: {ex}");
                 return StatusCode(500, $"Internal error server {ex.InnerException.InnerException.Message}");
             }
         }
 
+        /*
+
+            {
+                "guidcity": "24fd81f8-d58a-4bcc-9f35-dc6cd5641906",
+                "name": "  YESID ARLEY  ",
+                "lastname": "marin rivera",
+                "email": "   yesidmarin.dev@gmail.com  ",
+                "address": "Av 7",
+                "telephone": "31100000"
+            }
+            
+        */
+
         [HttpPut("{id}")]
-        
-        public IActionResult UpdateCustomer(int id, [FromBody] Customer customer)
+        public IActionResult UpdateCustomer(Guid id, [FromBody] Customer customer)
         {
             try
             {
-          
                 if (customer == null)
                 {
                     _logger.LogError("Customer object sent from client is null");
@@ -124,7 +146,7 @@ namespace apiRest.Controllers
                     return NotFound();
                 }
                 _repositoryWrapper.Customer.UpdateCustomer(dbCustomer, customer);
-                return NoContent();
+                return Ok();
             }
             catch (Exception ex)
             {

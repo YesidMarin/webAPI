@@ -27,9 +27,9 @@ namespace Repository
             return FindAll().OrderBy(ob => ob.Name).DefaultIfEmpty(new Customer());
         }
 
-        public Customer GetCustomerById(int id)
+        public Customer GetCustomerById(Guid id)
         {
-            return FindByCondition(ob => ob.Identification.Equals(id))
+            return FindByCondition(ob => ob.Id.Equals(id))
                 .DefaultIfEmpty(new Customer())
                 .FirstOrDefault();
         }

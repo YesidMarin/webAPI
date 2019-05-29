@@ -10,34 +10,34 @@ namespace Entities.Models
     public class Customer : IEntity
     {
         [Key]
-        [Column("CustomerId")]
+        [Column("primaryId")]
         public Guid Id { get; set; }
 
-        [Column("CustomerCityId")]
-        [JsonRequiredAttribute()]
+        [Column("cityId")]
+        [JsonRequired]
         public Guid GuidCity { get; set; }
 
-        [Column("CustomerName")]
+        [Column("customerName")]
         [StringLength(25, ErrorMessage = "Max range of 25")]
-        [JsonRequiredAttribute()]
         public string Name { get; set; }
 
-        [Column("CustomerLastName")]
+        [Column("lastName")]
         [StringLength(25, ErrorMessage = "Max range of 25")]
-        [JsonRequiredAttribute()]
         public string LastName { get; set; }
 
-        [Column("CustomerIdNumber")]
-        public int Identification { get; set; }
+        [Column("numberId")]
+        [StringLength(12, ErrorMessage = "Max range of 12")]
+        public string Identification { get; set; }
 
-        [Column("CustomerTelephone")]
-        public int Telephone { get; set; }
+        [Column("telephone")]
+        [StringLength(12, ErrorMessage = "Max range of 12")]
+        public string Telephone { get; set; }
 
-        [Column("CustomerAddress")]
+        [Column("address")]
         [StringLength(30, ErrorMessage = "Max range of 30")]
         public string Address { get; set; }
 
-        [Column("CustomerEmail")]
+        [Column("email")]
         [StringLength(30, ErrorMessage = "Max range of 30")]
         public string Email { get; set; }
     }
