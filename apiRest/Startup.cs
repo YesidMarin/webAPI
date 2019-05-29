@@ -38,6 +38,7 @@ namespace apiRest
             services.ConfigureRepositoryWrapper();
             services.AddHttpClient();
             services.ConfigureLogService();
+            services.ConfigureJwt(Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -61,6 +62,13 @@ namespace apiRest
             });
 
             app.UseCookiePolicy();
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            app.UseAuthentication();
+
             app.UseMvc();
         }
     }

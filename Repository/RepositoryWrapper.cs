@@ -1,6 +1,8 @@
 ﻿using System;
 using Contracts;
 using Entities;
+using Entities.Extensions;
+using Microsoft.Extensions.Options;
 
 namespace Repository
 {
@@ -9,6 +11,7 @@ namespace Repository
         private RepositoryContext _repositoryContext;
         private ICityRepository _cityRepository;
         private ICustomerRepository _customerRepository;
+        private IUserService _userService;
 
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {

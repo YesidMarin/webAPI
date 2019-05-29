@@ -6,5 +6,6 @@ namespace Contracts
         ICityRepository City { get; }
 
         ICustomerRepository Customer { get; }
+
     }
 }

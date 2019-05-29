@@ -5,6 +5,7 @@ using Contracts;
 using System.Linq;
 using Entities.Models;
 using Entities.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace apiRest.Controllers
 {
@@ -60,13 +61,11 @@ namespace apiRest.Controllers
                 }
                 else
                 {
-                    _logger.LogInfo($"Return city with id: {id}");
                     return Ok(city);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Something went wrong inside: CityController -> GetCityById action: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -104,13 +103,11 @@ namespace apiRest.Controllers
 
         /*
 
-        Request body
-
         {
             "name": "city_name"
-        }           
-
-            */
+        }   
+        
+        */
 
         [HttpPost]
         public IActionResult CreateCity([FromBody] City city)
